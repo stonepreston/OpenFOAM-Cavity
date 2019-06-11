@@ -32,3 +32,11 @@ The text between the : and the $ is the current working directory. In this case 
 ```$ pwd```
 
 Dont type the $. The $ signifies the end of the terminal prompt and will be used to indicate that the following line of code is intended to be entered as a terminal command. After typing the command and pressing enter, you should see the location of your home directory printed to the screen. 
+
+![pwd command](./Images/pwd.png)
+
+Note: If you want to paste into the terminal window, you have to use ctrl + shift + v instead of the usual ctrl + v. Similary to copy from the terminal window to the clipboard you must use ctrl + shift + c.
+
+We can list files and directories that exist in the current working directory by typing the ls command (short for list):
+
+```$ ls ```

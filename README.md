@@ -123,4 +123,7 @@ This marks the end of the basic Unix command primer. That covers most of what yo
 
 ```$ man cp```
 
+## OpenFOAM Installation
+The [OpenFOAM Installation Instructions](https://openfoam.org/download/6-ubuntu/) briefly explain the steps required to install OpenFOAM 6 for Ubuntu. I follow the same steps but explain the purpose of the commands along the way to provide a better understanding. 
+
 

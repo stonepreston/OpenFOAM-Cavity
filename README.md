@@ -73,4 +73,23 @@ The terminal keeps a history of previously entered commands. Let's cycle back th
 
 You should see the name of your newly created text file as output. That is the basics of file system navigation. 
 
+### Creating Directories, Copying Files, Removing Files, and Moving Files
+
+You can make a new directory using the mkdir command (make directory). Lets create a new directory inside documents called Stuff and use an absolute path just for fun:
+
+```$ mkdir ~/Documents/Stuff```
+
+Change into the newly created directory:
+
+```$ cd ~/Documents/Stuff/```
+
+We can copy our hello_world.txt file to this directory using the cp command. The cp command takes two arguments, the source file and the destination directory. The arguments are separated by a space. Since hello_world.txt exists one directory up, we can specify its path using the ../ syntax. We can also specify the current working directory as the destination using the . (dot) shortcut:
+
+```$ cp ../hello_world.txt .```
+
+The dot represents the current working directory and is used quite a bit, especially when copying files. You can list the contents of Stuff and see that it now contains a copy of the hello_world.txt file.
+
+Let's remove the copy we just made using the rm command:
+
+```$ rm hello_world.txt ```
 

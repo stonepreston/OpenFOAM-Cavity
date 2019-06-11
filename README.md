@@ -40,3 +40,85 @@ Note: If you want to paste into the terminal window, you have to use ctrl + shif
 We can list files and directories that exist in the current working directory by typing the ls command (short for list):
 
 ```$ ls ```
+
+new stuff here
+
+You should see a list of the familiar directories Documents, Pictures, etc. You can list the contents of a specific directory by passing the directory name as an argument to the ls command:
+
+```$ ls Documents/ ```
+
+Note that the terminal has an autocompletion feature. You can start typing the directory name Documents but press tab after typing the c character. It should autocomplete the rest of the name for you. Also note that we used a relative path to specify the directory name (relative to the current working directory.) We could have specified the abosolute path of the Documents directory using the root directory like so:
+
+```$ ls /home/your_username/Documents/ ```
+
+You can only use a relative path if the file or directory you want exists in the current working directory or in a subdirectory of the current working directory.
+
+You probably dont have anything in this directory yet so you most likely did not see any output from the command. We will add a file to it soon. You can move to a different directory using the cd command (change directory):
+
+```$ cd Documents/```
+
+You will notice that your prompt changed. Now ~/Documents is between the : and the $. Your current working directory is now the Documents directory instead of ~. Let's add a file to this directory. A quick way to create a file is the touch command. We can specify a file name as an argument:
+
+```$ touch hello_world.txt```
+
+Let's get back to the home directory, which is one directory up from Documents. We could use ```$ cd ~``` or ```cd /home/your_username/```, but a common way to move up a single directory is to use a special dot notation:
+
+```$ cd ../```
+
+That should take you up one directory, back to your home directory. Another quick way to get back to ~ is to use the cd command without any arguments. 
+
+```$ cd```
+
+The terminal keeps a history of previously entered commands. Let's cycle back through our previous commands until we find the command to list the contents of the Documents directory. You can cycle through the commands by pressing the up an down arrows on your keyboard. Press the up arrow until you come to the following and hit enter:
+
+```$ ls Documents/ ```
+
+You should see the name of your newly created text file as output. That is the basics of file system navigation. 
+
+### Creating Directories, Copying Files, Removing Files, and Moving Files
+
+You can make a new directory using the mkdir command (make directory). Lets create a new directory inside documents called Stuff and use an absolute path just for fun:
+
+```$ mkdir ~/Documents/Stuff```
+
+Change into the newly created directory:
+
+```$ cd ~/Documents/Stuff/```
+
+We can copy our hello_world.txt file to this directory using the cp command. The cp command takes two arguments, the source file and the destination directory. The arguments are separated by a space. Since hello_world.txt exists one directory up, we can specify its path using the ../ syntax. We can also specify the current working directory as the destination using the . (dot) shortcut:
+
+```$ cp ../hello_world.txt .```
+
+The dot represents the current working directory and is used quite a bit, especially when copying files. You can list the contents of Stuff and see that it now contains a copy of the hello_world.txt file.
+
+Let's remove the copy we just made using the rm command:
+
+```$ rm hello_world.txt ```
+
+You can remove directories using the same command, but if they are not empty you have to specify a recursive force flag. Flags are specified using a - followed by the flag characters. The flags for recursive and force are r and f. Lets copy the text file again, change to the Documents directory, and then delete the non-empty Stuff directory using the rm command:
+
+```
+$ cp ../hello_world.txt .
+$ cd ../
+$ rm -rf Stuff/
+```
+
+If you list the contents of Documents/ you should see that the Stuff directory is no longer there. We should also learn how to move files from one directory to another. Remake the Stuff directory:
+
+```$ mkdir Stuff ```
+
+We can move the hello_world.txt file from Documents to Stuff using the mv command. Like copy, it takes the source file and destination as arugments:
+
+```$ mv hello_world.txt Stuff/ ```
+
+Verify that the text file is no longer in Documents but has been moved to stuff using the ls command.
+
+You also use the mv command to rename files. We can rename the text file like so (I used absolute paths but you could use relative if you wanted to):
+
+```$ mv ~/Documents/Stuff/hello_world.txt  ~/Documents/Stuff/hello_world_renamed.txt ```
+
+Verify that the name changed using the ls command. 
+
+This marks the end of the basic Unix command primer. That covers most of what you need to start using OpenFOAM, but you will learn more and more as you go along. If you need help with a command, you can read the manual pages using the man commmand followed by the name of the command you want help with. For example, to get help with the cp command enter the following:
+
+```$ man cp```

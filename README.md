@@ -159,5 +159,13 @@ Currently we wont be able to use the OpenFOAM collection of programs and command
 
 You should get an error that the command was not found. The reason is that our system does not recognize the OpenFOAM commands because it does not know where to look for them. We would have to specify the full path to the OpenFOAM commands in order to use them (typing out /opt/openfoam6/.../.../ and drilling down to the command we wanted would not be fun.)
 
+To make it so that our system recognizes the OpenFOAM commands just by typing the command name (without having to specify the full path to the command), we can add the directories of the OpenFOAM commands to an environment variable called "The Path." The path is a list of directories that Bash searches through when you type a command. When you type a command like apt-get update, Bash looks for the command in all of the directories listed in the path variable, and when it finds it, it executes the command. You can show the current value of the path variable in the terminal using the command below:
+
+```$ echo $PATH ```
+
+The echo command displays whatever arguments it gets passed to the terminal window. In this case the argument that was passed was the path environment variable. Environment variable names are preceded with a $ and are usually in upper case. We will see more examples of environment variables later on. You will notice there are no OpenFOAM related directories in your path variable. Also note that the different directories are comma delimited. 
+
+The process of adding a directory to the path is very common when using unix operating systems so it is important to know how to do it. Generally you modify the path by inserting lines of code into a special file called .bashrc. This file is an initializer that is run when a bash session is started interactively (like when you open terminal window.) 
+
 
 

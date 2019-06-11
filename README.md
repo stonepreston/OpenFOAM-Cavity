@@ -10,7 +10,7 @@ The following tutorial aims to get a beginner linux user up to speed with using 
 
 Log into your Ubuntu System. Open a terminal by pressing "cmd + a" (Mac keyboards) or "windows key + a" (Windows keyboards) to open a list of applications installed on your machine. Alternatively, you can press the menu button on the dock as shown below. Note: My icons and theme may be slightly different than yours.
 
-<img src="/Images/Open_Terminal.jpg"/>
+<img src="Images/Open_Terminal.jpg"/>
 
 ![Ubuntu Applications Menu](https://github.com/stonepreston/OpenFOAM-Cavity/blob/master/Images/Open_Terminal.jpg)
 

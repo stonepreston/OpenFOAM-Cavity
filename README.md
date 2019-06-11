@@ -124,6 +124,24 @@ This marks the end of the basic Unix command primer. That covers most of what yo
 ```$ man cp```
 
 ## OpenFOAM Installation
-The [OpenFOAM Installation Instructions](https://openfoam.org/download/6-ubuntu/) briefly explain the steps required to install OpenFOAM 6 for Ubuntu. I follow the same steps but explain the purpose of the commands along the way to provide a better understanding. 
+The [OpenFOAM Installation Instructions](https://openfoam.org/download/6-ubuntu/) briefly explain the steps required to install OpenFOAM 6 for Ubuntu. I follow the same steps but explain the purpose of the commands along the way to provide a better understanding. If you dont have Terminal open, go ahead and open it now.
+
+To install OpenFOAM, we will use a package manager called Apt. A package manager allows the user to install, update, and remove software. There are many different package managers but we will mainly be using Apt. 
+
+In order for Apt to install OpenFOAM, we have to add the OpenFOAM repository to the repository list (otherwise Apt would not be able to find it since OpenFOAM is not in the default repositories.) Copy and paste the following line into the terminal and hit enter (Remember: To paste into the terminal you must use ctrl + shift + v or use the right click menu.) 
+
+```$ sudo sh -c "wget -O - http://dl.openfoam.org/gpg.key | apt-key add -"```
+
+You will be prompted to enter your password. Enter your password and press enter. You will not be able to see the characters of your password as you type. You should see something similar to the image below if the command was successful:
+
+![Adding the GPG key](./Images/add_gpg.png)
+
+The word "sudo" is short for super user do. It essentially allows commands to be executed as the "root" user. It's similar to running a command as an administrator in Windows. Some commands require sudo, some do not. You will get an error if you try and run a command that requires root privileges without specifying sudo before the command. 
+
+The rest of that command adds a public key for package verification. This is encryption related. Don't worry too much about it.
+
+We can now add the OpenFOAM repository to Apt using the command below. Copy and paste it into your terminal and press enter. You may be prompted to enter your password again. 
+``` $ sudo add-apt-repository http://dl.openfoam.org/ubuntu ```
+
 
 

@@ -10,11 +10,12 @@ The following tutorial aims to get a beginner linux user up to speed with using 
 
 Log into your Ubuntu System. Open a terminal by pressing "cmd + a" (Mac keyboards) or "windows key + a" (Windows keyboards) to open a list of applications installed on your machine. Alternatively, you can press the menu button on the dock as shown below. Note: My icons and theme may be slightly different than yours.
 
-*insert menu picture here
+![pwd](https://github.com/stonepreston/OpenFOAM-Cavity/blob/master/Images/Open_Terminal.jpg)
 
 Scroll down the list until you find the terminal application. You can right click the icon and add Terminal to your favorites. This will place the Terminal icon in your dock for easy access. Open Terminal by clicking the icon in the applications list or clicking it in your dock. A window like the one below will open.
 
-*insert picture of terminal here
+
+![pwd](https://github.com/stonepreston/OpenFOAM-Cavity/blob/master/Images/terminal.png)
 
 Terminal allows the user to interact with a program called Bash. Bash is a type of program known as a shell and provides an interface to the system itself. A user can enter text commands to navigate the file system, install software, and do other common tasks using the shell interactively. Bash can also run script files.
 
@@ -32,7 +33,7 @@ The text between the : and the $ is the current working directory. In this case 
 
 Dont type the $. The $ signifies the end of the terminal prompt and will be used to indicate that the following line of code is intended to be entered as a terminal command. After typing the command and pressing enter, you should see the location of your home directory printed to the screen. 
 
-*insert pwd picture here
+![pwd](https://github.com/stonepreston/OpenFOAM-Cavity/blob/master/Images/pwd.png)
 
 Note: If you want to paste into the terminal window, you have to use ctrl + shift + v instead of the usual ctrl + v. Similary to copy from the terminal window to the clipboard you must use ctrl + shift + c.
 

@@ -180,7 +180,7 @@ You should see .bashrc in the list of files now. Open it using the gedit text ed
 
 ```$ gedit .bashrc```
 
-You may or may not have a lot of code in this file. When an interactive shell session is started, Bash will execute every line in this .bashrc file. Luckily for us, the OpenFOAM developers provided a script that will correctly append the required directories to the $PATH variable (the script does some other stuff as well). The script is located at /opt/openfoam6/etc/bashrc. All we need to do is add a line to our .bashrc file that says "Run the script located here" and we will be done. 
+You may or may not have a lot of code in this file. When an interactive shell session is started, Bash will execute every line in this .bashrc file. Luckily for us, the OpenFOAM developers provided a script that will correctly append the required directories to the $PATH variable (the script does some other stuff as well). The script is located at /opt/openfoam6/etc/bashrc. All we need to do is add a line of code to our .bashrc file that essentially says "Run the script located here" and we will be done. 
 
 Scroll down to the very bottom of the file and add the following line (if you previously installed a different version of OpenFOAM and modified this file, you will need to remove any OpenFOAM related lines that you added previously):
 
@@ -191,6 +191,20 @@ The source command instructs Bash to execute the script at the location specifie
 Try running the simpleFoam command again. It should work this time around:
 
 ```$ simpleFoam -help ```
+
+OpenFOAM 6 is now installed and configured. 
+
+# Visual Studio Code Installation
+
+OpenFOAM requires the use of a text editor to edit files. It also requires a lot of terminal commands. If you only have one screen, switching back and forth between the terminal and the text editor can be annoying. Visual Studio Code (Note: This is not the same application as Visual Studio) is a powerful text editor that has an integrated terminal inside of it. You can edit files and run terminal commmands all in a single window. We can install it using a different package manager called Snap:
+
+```$ sudo snap install --classic code```
+
+You should see a success message after the installation completes. 
+
+# The Cavity Case
+
+
 
 
 

@@ -1,5 +1,4 @@
 # OpenFOAM Cavity Tutorial
-Why wont this work 2
 
 OpenFOAM Version: 6
 
@@ -31,3 +30,5 @@ When you open Terminal, the current working directory will be your home director
 The text between the : and the $ is the current working directory. In this case you are currently in your home directory, represented by the tilde. You can also verify this using the pwd command (print working directory). You enter a command by typing its name and then pressing enter. 
 
 ```$ pwd```
+
+Dont type the $. The $ signifies the end of the terminal prompt and will be used to indicate that the following line of code is intended to be entered as a terminal command. After typing the command and pressing enter, you should see the location of your home directory printed to the screen. 

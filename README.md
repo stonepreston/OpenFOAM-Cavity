@@ -41,7 +41,7 @@ We can list files and directories that exist in the current working directory by
 
 ```$ ls ```
 
-ou should see a list of the familiar directories Documents, Pictures, etc. You can list the contents of a specific directory by passing the directory name as an argument to the ls command:
+You should see a list of the familiar directories Documents, Pictures, etc. You can list the contents of a specific directory by passing the directory name as an argument to the ls command:
 
 ```$ ls Documents/ ```
 
@@ -66,6 +66,10 @@ Let's get back to the home directory, which is one directory up from Documents. 
 That should take you up one directory, back to your home directory. Another quick way to get back to ~ is to use the cd command without any arguments. 
 
 ```$ cd```
+
+Note: If your terminal window gets too full you can clear it using the clear command:
+
+```$ clear ```
 
 The terminal keeps a history of previously entered commands. Let's cycle back through our previous commands until we find the command to list the contents of the Documents directory. You can cycle through the commands by pressing the up an down arrows on your keyboard. Press the up arrow until you come to the following and hit enter:
 
@@ -98,5 +102,25 @@ You can remove directories using the same command, but you have to specify a rec
     $ cp ../hello_world.txt .
     $ cd ../
     $ rm -rf Stuff/
+
+If you list the contents of Documents/ you should see that the Stuff directory is no longer there. We should also learn how to move files from one directory to another. Remake the Stuff directory:
+
+```$ mkdir Stuff ```
+
+We can move the hello_world.txt file from Documents to Stuff using the mv command. Like copy, it takes the source file and destination as arugments:
+
+```$ mv hello_world.txt Stuff/ ```
+
+Verify that the text file is no longer in Documents but has been moved to stuff using the ls command.
+
+You also use the mv command to rename files. We can rename the text file like so (I used absolute paths but you could use relative if you wanted to):
+
+```$ mv ~/Documents/Stuff/hello_world.txt  ~/Documents/Stuff/hello_world_renamed.txt ```
+
+Verify that the name changed using the ls command. 
+
+This marks the end of the basic Unix command primer. That covers most of what you need to start using OpenFOAM, but you will learn more and more as you go along. If you need help with a command, you can read the manual pages using the man commmand followed by the name of the command you want help with. For example, to get help with the cp command enter the following:
+
+```$ man cp```
 
 

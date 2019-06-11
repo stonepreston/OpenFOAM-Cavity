@@ -16,7 +16,7 @@ Log into your Ubuntu System. Open a terminal by pressing "cmd + a" (Mac keyboard
 Scroll down the list until you find the terminal application. You can right click the icon and add Terminal to your favorites. This will place the Terminal icon in your dock for easy access. Open Terminal by clicking the icon in the applications list or clicking it in your dock. A window like the one below will open.
 
 
-![Terminal Window](https://github.com/stonepreston/OpenFOAM-Cavity/blob/master/Images/terminal.png)
+![Terminal Window](./Images/terminal.png)
 
 Terminal allows the user to interact with a program called Bash. Bash is a type of program known as a shell and provides an interface to the system itself. A user can enter text commands to navigate the file system, install software, and do other common tasks using the shell interactively. Bash can also run script files.
 

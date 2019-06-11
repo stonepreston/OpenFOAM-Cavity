@@ -35,7 +35,7 @@ Dont type the $. The $ signifies the end of the terminal prompt and will be used
 
 ![pwd command](./Images/pwd.png)
 
-Note: If you want to paste into the terminal window, you have to use ctrl + shift + v instead of the usual ctrl + v. Similary to copy from the terminal window to the clipboard you must use ctrl + shift + c.
+Note: If you want to paste into the terminal window, you have to use ctrl + shift + v instead of the usual ctrl + v. Similarly to copy from the terminal window to the clipboard you must use ctrl + shift + c.
 
 We can list files and directories that exist in the current working directory by typing the ls command (short for list):
 

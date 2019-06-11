@@ -29,3 +29,6 @@ When you open Terminal, the current working directory will be your home director
 
 ```your_username@your_computer_name:~$```
 
+The text between the : and the $ is the current working directory. In this case you are currently in your home directory, represented by the tilde. You can also verify this using the pwd command (print working directory). You enter a command by typing its name and then pressing enter. 
+
+```$ pwd```

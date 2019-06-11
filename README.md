@@ -31,7 +31,7 @@ The text between the : and the $ is the current working directory. In this case 
 
 ```$ pwd```
 
-Dont type the $. The $ signifies the end of the terminal prompt and will be used to indicate that the following line of code is intended to be entered as a terminal command. After typing the command and pressing enter, you should see the location of your home directory printed to the screen. 
+Dont type the `$`. For the purposes of this tutorial, the `$` signifies the end of the terminal prompt and will be used to indicate that the following line of code is intended to be entered as a terminal command. After typing the command and pressing enter, you should see the location of your home directory printed to the screen. 
 
 ![pwd command](./Images/pwd.png)
 
@@ -248,7 +248,9 @@ Let's also go ahead and open a new integrated terminal inside Visual Studio Code
 
 You can resize the height of the terminal by clicking and dragging the top of the terminal panel. Now that we have everything we need open, lets get started exploring the cavity case. 
 
-Note the directory tree on the left hand side. You can expand the directories by clicking on them. There are currently three directories. 0 contains files that define initial conditions. We currently have files that define initial conditions for velocity and pressure. Constant contains files that define constants. We currently have a transport properties file which we will investigate later. System contains files related to geometry and solver settings. We will start by looking at how to define geometry. Open the blockMeshDict file that is located inside the system directory. You will see the code shown below:
+Note the directory tree on the left hand side. You can expand the directories by clicking on them. There are currently three directories. 0 contains files that define initial and boundary conditions. We currently have files that define initial and boundary conditions for velocity and pressure. Constant contains files that define constants. We currently have a transport properties file which we will investigate later. System contains files related to geometry and solver settings. We will start by looking at how to define geometry.
+
+BlockMesh is a mesh generation program that ships with OpenFOAM and is used to define geometry and create a mesh file. Open the blockMeshDict file that is located inside the system directory. You will see the code shown below:
 
 
     convertToMeters 0.1;
@@ -308,6 +310,154 @@ Note the directory tree on the left hand side. You can expand the directories by
     mergePatchPairs
     (
     );
+
+Let's go through the code one line at a time. Ignore the large header at the very top of the file for now.
+
+The first line of code is shown below:
+
+```convertToMeters 0.1;```
+
+This defines a scaling factor that is applied to all the vertex coordinates. In this case every vertex coordinate is multiplied by .1. 
+
+    vertices
+    (
+        (0 0 0)
+        (1 0 0)
+        (1 1 0)
+        (0 1 0)
+        (0 0 0.1)
+        (1 0 0.1)
+        (1 1 0.1)
+        (0 1 0.1)
+    );
+    
+The above code defines a list of all the vertices present in the geometry. These vertices are used to construct a block. You can have multiple blocks. In this case we define a single block as shown below:
+
+    blocks
+    (
+        hex (0 1 2 3 4 5 6 7) (20 20 1) simpleGrading (1 1 1)
+    );
+
+The hex keyword describes the shape of the block (hexahedral). After the hex keyword is a list of vertices. The order the vertices are specified in when defining the block is important as this order defines the local coordinate system and adhere to these rules (remember that C++ indices start at 0):
+
+- the axis origin is the first entry in the block definition, vertex 0 in our example;
+- the x1 direction is described by moving from vertex 0 to vertex 1;
+- the x2 direction is described by moving from vertex 1 to vertex 2;
+- vertices 0, 1, 2, 3 define the plane x3 = 0;
+- vertex 4 is found by moving from vertex 0 in the x3 direction;
+- vertices 5,6 and 7 are similarly found by moving in the x3 direction from vertices 1,2 and 3 respectively.
+
+The local coordinate system MUST be right handed. The OpenFOAM documentation states that a right-handed set of axes is defined such that to an observer looking down the z axis, with the origin nearest them, the arc from a point on the x axis to a point on the y axis is in a clockwise sense. 
+
+If you were to draw our vertices in the order they are listed in the block definition, you will see that they do indeed adhere to the rules, and that the coordinate system is right handed. 
+
+The code ```(20 20 1)``` defines the number of mesh cells in the x, y, and z directions for this block. We will have 20 cells in both the x and y directions and 1 cell in the z direction. We must have at least 1 cell in the z direction because OpenFOAM uses 3 dimensional meshes only. 
+
+```simpleGrading (1 1 1)``` defines the cell expansion ratios in each direction. You can use this to create a graded mesh if you wish. In our case we want a uniform mesh with no grading, so we use ```(1 1 1)``` as the ratios. 
+
+The edges list is used to define curved edges between vertices. All of our edges are straight lines, so it is empty:
+
+    edges
+    (
+    );
+
+Finally, the boundary list contains named patches that describe each patch type and the faces that belong to that patch. The faces are described by a list of vertices that make up that face. The order of the vertices must be such that when looking from inside the block, the vertices are traversed in a clockwise direction
+
+    boundary
+    (
+        movingWall
+        {
+            type wall;
+            faces
+            (
+                (3 7 6 2)
+            );
+        }
+        fixedWalls
+        {
+            type wall;
+            faces
+            (
+                (0 4 7 3)
+                (2 6 5 1)
+                (1 5 4 0)
+            );
+        }
+        frontAndBack
+        {
+            type empty;
+            faces
+            (
+                (0 3 2 1)
+                (4 5 6 7)
+            );
+        }
+    );
+    
+
+Note that the frontAndBack patch has the type empty. This reduces the dimensionality of the problem to 2 dimenisions. 
+
+
+The last line is used to merge patches when using multiple blocks. Since we only have 1 block this list is empty. 
+
+    mergePatchPairs
+    (
+    );
+    
+BlockMesh is very powerful. It is also very confusing and can be a pain to use. For complex geometries it might be impossible to use BlockMesh to create a mesh. Fortunately OpenFOAM has mesh conversion tools that allow one to convert meshes from other softwares such as Fluent or Gmsh. A mesh generation tutorial using Gmsh is provided in a later section. 
+
+Close the blockMeshDict file. WIth the geometry defined, we can generate a mesh by running the blockMesh command at the root of the case directory. Run the following command in the integrated terminal:
+
+```$ blockMesh```
+
+You should see some output with no errors. Its a good idea to go ahead and check the mesh that was created as well. Run the checkMesh utility:
+
+```$ checkMesh ```
+
+You should see some output that says "Mesh OK." at the end. That is a good sign. 
+
+Now let's take a look at the boundary and initial conditions for velocity. Open the U file located in the 0 directory. It should look similar to this:
+
+    dimensions      [0 1 -1 0 0 0 0];
+
+    internalField   uniform (0 0 0);
+
+    boundaryField
+    {
+        movingWall
+        {
+            type            fixedValue;
+            value           uniform (1 0 0);
+        }
+
+        fixedWalls
+        {
+            type            noSlip;
+        }
+
+        frontAndBack
+        {
+            type            empty;
+        }
+    }
+
+The dimensions define the units of the field. The order of the dimensions is as such:
+
+| Index | Property           | Units |
+|-------|--------------------|-------|
+| 0     | Mass               | kg    |
+| 1     | Length             | m     |
+| 2     | Time               | s     |
+| 3     | Temperature        | K     |
+| 4     | Quantity           | mol   |
+| 5     | Current            | A     |
+| 6     | Luminous Intensity | cd    |
+
+
+
+
+
+
 
 
 

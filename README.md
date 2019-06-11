@@ -165,7 +165,32 @@ To make it so that our system recognizes the OpenFOAM commands just by typing th
 
 The echo command displays whatever arguments it gets passed to the terminal window. In this case the argument that was passed was the path environment variable. Environment variable names are preceded with a $ and are usually in upper case. We will see more examples of environment variables later on. You will notice there are no OpenFOAM related directories in your path variable. Also note that the different directories are comma delimited. 
 
-The process of adding a directory to the path is very common when using unix operating systems so it is important to know how to do it. Generally you modify the path by inserting lines of code into a special file called .bashrc. This file is an initializer that is run when a bash session is started interactively (like when you open terminal window.) 
+The process of adding a directory to the path is very common when using unix operating systems so it is important to know how to do it. Generally you modify the path by inserting lines of code into a special file called .bashrc. This file is an initializer script that is run when a bash session is started interactively (like when you open terminal window.) 
+
+The .bashrc file is located in the home directory. Let's change to the home directory and list the contents:
+ 
+    $ cd
+    $ ls
+
+However, you wont see .bashrc in the list. This is because files that begin with a period are hidden. We can show them by using the -a flag in conjunction with ls to list all files, including hidden ones:
+
+```$ ls -a```
+
+You should see .bashrc in the list of files now. Open it using the gedit text editor with the following command:
+
+```$ gedit .bashrc```
+
+You may or may not have a lot of code in this file. When an interactive shell session is started, Bash will execute every line in this .bashrc file. Luckily for us, the OpenFOAM developers provided a script that will correctly append the required directories to the $PATH variable (the script does some other stuff as well). The script is located at /opt/openfoam6/etc/bashrc. All we need to do is add a line to our .bashrc file that says "Run the script located here" and we will be done. 
+
+Scroll down to the very bottom of the file and add the following line (if you previously installed a different version of OpenFOAM and modified this file, you will need to remove any OpenFOAM related lines that you added previously):
+
+```source /opt/openfoam6/etc/bashrc```
+
+The source command instructs Bash to execute the script at the location specified. Save the file, close the terminal window, and open a new terminal window. This will start a new session and the modified .bashrc script will be executed. 
+
+Try running the simpleFoam command again. It should work this time around:
+
+```$ simpleFoam -help ```
 
 
 

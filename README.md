@@ -141,7 +141,23 @@ The word "sudo" is short for super user do. It essentially allows commands to be
 The rest of that command adds a public key for package verification. This is encryption related. Don't worry too much about it.
 
 We can now add the OpenFOAM repository to Apt using the command below. Copy and paste it into your terminal and press enter. You may be prompted to enter your password again. 
+
 ``` $ sudo add-apt-repository http://dl.openfoam.org/ubuntu ```
+
+We now need to tell Apt to update the package list (since we just added a new repo) by running the apt-get update command below:
+
+```$ sudo apt-get update```
+
+Finally, install OpenFOAM 6 by using the install command:
+```$ sudo apt-get -y install openfoam6```
+
+It may take a few minutes to install.
+
+Currently we wont be able to use the OpenFOAM collection of programs and commands in a convenient way. For example, OpenFOAM has a command called simpleFoam. Lets try using that command (we can specify the -help flag to get help with using that command.)
+
+```$ simpleFoam -help ```
+
+You should get an error that the command was not found. The reason is that our system does not recognize the OpenFOAM commands because it does not know where to look for them. We would have to specify the full path to the OpenFOAM commands in order to use them (typing out /opt/openfoam6/.../.../ and drilling down to the command we wanted would not be fun.)
 
 
 

@@ -95,10 +95,8 @@ Let's remove the copy we just made using the rm command:
 
 You can remove directories using the same command, but you have to specify a recursive force flag. Flags are specified using a - followed by the flag characters. The flags for recursive and force are r and f. Lets copy the text file again, change to the Documents directory, and then delete the non-empty Stuff directory using the rm command:
 
-```
+    $ cp ../hello_world.txt .
+    $ cd ../
+    $ rm -rf Stuff/
 
-$ cp ../hello_world.txt .
-$ cd ../
-$ rm -rf Stuff/
 
-```

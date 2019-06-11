@@ -251,6 +251,63 @@ You can resize the height of the terminal by clicking and dragging the top of th
 Note the directory tree on the left hand side. You can expand the directories by clicking on them. There are currently three directories. 0 contains files that define initial conditions. We currently have files that define initial conditions for velocity and pressure. Constant contains files that define constants. We currently have a transport properties file which we will investigate later. System contains files related to geometry and solver settings. We will start by looking at how to define geometry. Open the blockMeshDict file that is located inside the system directory. You will see the code shown below:
 
 
-Hope this works
+    convertToMeters 0.1;
+
+    vertices
+    (
+        (0 0 0)
+        (1 0 0)
+        (1 1 0)
+        (0 1 0)
+        (0 0 0.1)
+        (1 0 0.1)
+        (1 1 0.1)
+        (0 1 0.1)
+    );
+
+    blocks
+    (
+        hex (0 1 2 3 4 5 6 7) (20 20 1) simpleGrading (1 1 1)
+    );
+
+    edges
+    (
+    );
+
+    boundary
+    (
+        movingWall
+        {
+            type wall;
+            faces
+            (
+                (3 7 6 2)
+            );
+        }
+        fixedWalls
+        {
+            type wall;
+            faces
+            (
+                (0 4 7 3)
+                (2 6 5 1)
+                (1 5 4 0)
+            );
+        }
+        frontAndBack
+        {
+            type empty;
+            faces
+            (
+                (0 3 2 1)
+                (4 5 6 7)
+            );
+        }
+    );
+
+    mergePatchPairs
+    (
+    );
+
 
 

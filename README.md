@@ -149,6 +149,7 @@ We now need to tell Apt to update the package list (since we just added a new re
 ```$ sudo apt-get update```
 
 Finally, install OpenFOAM 6 by using the install command:
+
 ```$ sudo apt-get -y install openfoam6```
 
 It may take a few minutes to install.
@@ -204,7 +205,42 @@ You should see a success message after the installation completes.
 
 # The Cavity Case
 
+OpenFOAM ships with a bunch of tutorial cases. These are important and are usually used as a starting point for cases in general. You generally don't start from scratch when using OpenFOAM. You would determine the type of problem you want to solve (steady state, transient, incompressible, compressible, multiphase, etc) and then copy a tutorial case that corresponds to that specific type of problem. You would then modify that copied tutorial case (by changing the geometry of the mesh, solver settings, fluid properties, etc) to suit your problem. 
+
+The cavity case is probably the most basic case there is. The classic problem is that of a square fluid filled cavity with a moving lid. We will solve the problem as an incompressible, transient, laminar flow problem. We will use the OpenFOAM to solve this moving lid problem and use a program called ParaView (this is the default post processing tool that ships with OpenFOAM) to postprocess the results. 
+
+We will begin by making a directory to store our personal cases in (You don't want to modify the tutorial cases directly, so we will copy the cavity case to this new directory.) OpenFOAM provides a special environment variable called $FOAM_RUN. This variable stores the location of the standard "run" directory where users should store all their personal cases. Echo the value of this variable to the terminal:
+
+```$ echo $FOAM_RUN```
+
+ Let's try changing to that  directory:
+
+```$ cd $FOAM_RUN ```
+
+You will see that it does not exist, so we need to create it. To create our new directory we will use the mkdir command, along with the -p flag:
+
+```$ mkdir -p $FOAM_RUN```
+
+The -p flag tells the mkdir command to make parent directories if needed (if the directory you are trying to create is nested within other nonexistant directories.) Now that the directory has been created, we should be able to change to it:
+
+```$ cd $FOAM_RUN ```
+
+We will also use another environment variable called $FOAM_TUTORIALS. This variable stores the location of the tutorial cases. We can use that variable to drill down further into the tutorials directory to the cavity case. We will copy the cavity tutorial case to the current working directory (note the use of . as the destination) using the cp command as shown below:
+
+```$ cp -r $FOAM_TUTORIALS/incompressible/icoFoam/cavity/cavity . ```
 
 
+The -r flag tells the command to recursively copy (which means it will also copy over all the necessary child directories). 
+Now that we have the case copied to our run directory, change directories to it:
+
+```$ cd cavity ```
+
+Open the current directory in Visual Studio Code:
+
+``` code . ```
+
+You will see a screen similar to the one below:
+
+![Visual Studio Code Window](./Images/code.jpg)
 
 

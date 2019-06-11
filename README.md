@@ -49,4 +49,28 @@ Note that the terminal has an autocompletion feature. You can start typing the d
 
 ```$ ls /home/your_username/Documents/ ```
 
+You can only use a relative path if the file or directory you want exists in the current working directory or in a subdirectory of the current working directory.
+
+You probably dont have anything in this directory yet so you most likely did not see any output from the command. We will add a file to it soon. You can move to a different directory using the cd command (change directory):
+
+```$ cd Documents/```
+
+You will notice that your prompt changed. Now ~/Documents is between the : and the $. Your current working directory is now the Documents directory instead of ~. Let's add a file to this directory. A quick way to create a file is the touch command. We can specify a file name as an argument:
+
+```$ touch hello_world.txt```
+
+Let's get back to the home directory, which is one directory up from Documents. We could use ```$ cd ~``` or ```cd /home/your_username/```, but a common way to move up a single directory is to use a special dot notation:
+
+```$ cd ../```
+
+That should take you up one directory, back to your home directory. Another quick way to get back to ~ is to use the cd command without any arguments. 
+
+```$ cd```
+
+The terminal keeps a history of previously entered commands. Let's cycle back through our previous commands until we find the command to list the contents of the Documents directory. You can cycle through the commands by pressing the up an down arrows on your keyboard. Press the up arrow until you come to the following and hit enter:
+
+```$ ls Documents/ ```
+
+You should see the name of your newly created text file as output. That is the basics of file system navigation. 
+
 

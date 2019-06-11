@@ -244,7 +244,7 @@ You will see a screen similar to the one below:
 
 Let's also go ahead and open a new integrated terminal inside Visual Studio Code. Click the Terminal button in the top toolbar, and then select New Terminal:
 
-![Visual Studio Code Window](./Images/add_code_terminal.png)
+![Adding a Terminal](./Images/add_code_Terminal.png)
 
 You can resize the height of the terminal by clicking and dragging the top of the terminal panel. Now that we have everything we need open, lets get started exploring the cavity case. 
 

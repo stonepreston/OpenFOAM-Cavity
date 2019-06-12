@@ -205,6 +205,8 @@ You should see a success message after the installation completes.
 
 # The Cavity Case
 
+Most of the content here is covered in the [Open Foam User Guide](https://cfd.direct/openfoam/user-guide/v6-cavity/). However, it is not very thorough and will probably leave you with questions. I have tried to go a bit more in depth than they do. 
+
 OpenFOAM ships with a bunch of tutorial cases. These are important and are usually used as a starting point for cases in general. You generally don't start from scratch when using OpenFOAM. You would determine the type of problem you want to solve (steady state, transient, incompressible, compressible, multiphase, etc) and then copy a tutorial case that corresponds to that specific type of problem. You would then modify that copied tutorial case (by changing the geometry of the mesh, solver settings, fluid properties, etc) to suit your problem. 
 
 The cavity case is probably the most basic case there is. The classic problem is that of a square fluid filled cavity with a moving lid. We will solve the problem as an incompressible, transient, laminar flow problem. We will use the OpenFOAM to solve this moving lid problem and use a program called ParaView (this is the default post processing tool that ships with OpenFOAM) to postprocess the results. 
@@ -248,7 +250,7 @@ Let's also go ahead and open a new integrated terminal inside Visual Studio Code
 
 You can resize the height of the terminal by clicking and dragging the top of the terminal panel. Now that we have everything we need open, lets get started exploring the cavity case. 
 
-Note the directory tree on the left hand side. You can expand the directories by clicking on them. There are currently three directories. 0 contains files that define initial and boundary conditions. We currently have files that define initial and boundary conditions for velocity and pressure. Constant contains files that define constants. We currently have a transport properties file which we will investigate later. System contains files related to geometry and solver settings. We will start by looking at how to define geometry.
+Note the directory tree on the left hand side. You can expand the directories by clicking on them. There are currently three directories. 0 contains files that define initial and boundary conditions. We currently have files that define initial and boundary conditions for velocity and kinematic pressure. Constant contains files that define constants. We currently have a transport properties file which we will investigate later. System contains files related to geometry and solver settings. We will start by looking at how to define geometry.
 
 BlockMesh is a mesh generation program that ships with OpenFOAM and is used to define geometry and create a mesh file. Open the blockMeshDict file that is located inside the system directory. You will see the code shown below:
 
@@ -414,7 +416,7 @@ You should see some output with no errors. Its a good idea to go ahead and check
 
 ```$ checkMesh ```
 
-You should see some output that says "Mesh OK." at the end. That is a good sign. 
+You should see some output that says "Mesh OK." at the end. That is a good sign. Note that running blockMesh created a new polyMesh directory in the constant directory. 
 
 Now let's take a look at the boundary and initial conditions for velocity. Open the U file located in the 0 directory. It should look similar to this:
 
@@ -454,8 +456,78 @@ The dimensions define the units of the field. The order of the dimensions is as 
 | 6     | Luminous Intensity | cd    |
 
 
+`dimensions      [0 1 -1 0 0 0 0];` corresponds to units of meters per second, which is what we would expect for the velocity. 
 
+`internalField   uniform (0 0 0);` sets the initial condition for the velocity of the fluid domain. In this case the velocity is 0 in all directions. 
 
+The next section defines the boundary conditions of each patch (the patches that we listed in the blockMeshDict file.). The moving wall moves at a velocity of 1 m/s in the x direction as shown below:
+
+    movingWall
+            {
+                type            fixedValue;
+                value           uniform (1 0 0);
+            }
+            
+We will apply a no slip condition to the fixed walls. We could have also used a fixed value of (0 0 0) but using the no slip condition is handier. 
+    
+    fixedWalls
+        {
+            type            noSlip;
+        } 
+        
+  
+ The front and back walls will have empty boundary conditions due to the dimensionality reduction. 
+  
+    frontAndBack
+        {
+            type            empty;
+        }
+ 
+The kinematic pressure file p is similar:
+ 
+    dimensions      [0 2 -2 0 0 0 0];
+
+    internalField   uniform 0;
+
+    boundaryField
+    {
+        movingWall
+        {
+            type            zeroGradient;
+        }
+
+        fixedWalls
+        {
+            type            zeroGradient;
+        }
+
+        frontAndBack
+        {
+            type            empty;
+        }
+    }
+
+The dimensions correspond to units of meters squared per second squared, which are the units for kinematic pressure. The reason we are working with kinematic pressure is because the icoFoam solver which will be used is an incompressible solver, and transforms the static pressure to kinematic pressure. It's a good idea to always double check your units so things like this don't catch you by surprise. 
+
+Note that the zeroGradient boundary condition implies that the gradient normal to the boundary is 0. Again we have an empty boundary condition for the frontAndBack patch. 
+
+Now let's open the transportProperties file in the constant directory. We only need to define the kinematic viscosity as shown below:
+
+```nu              [0 2 -1 0 0 0 0] 0.01;```
+
+Open the controlDict file in the system directory. This file controls settings related to simultation timing and the writing of data to disk. Most of the values are self explanatory. The application field describes which solver is going to be used (icoFoam in this case.) Note the values of the writeControl and writeInterval fields. Using a timeStep write control in conjunction with a writeInterval of 20 means that we are going to write data to disk every 20 time steps (or .1s, .2s. etc.) 
+
+The fvSchemes file is related to the discretization of the domain. The fvSolution file can be used to control tolerances and other solver settings. I haven't messed with these much so I wont go into them. 
+
+We can run the simulation using the icoFoam command:
+
+```$ icoFoam```
+
+We can postprocess the results in ParaView using the paraFoam command:
+
+```$ paraFoam```
+
+At this point, the documentation is rather good so I will refer you to section 2.1.4 of the [Open Foam User Guide](https://cfd.direct/openfoam/user-guide/v6-cavity/) for post-processing the results. 
 
 
 
